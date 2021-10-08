@@ -1,0 +1,155 @@
+==================================== REACT REDUX ==============================
+
+1) Instructions 
+    what is Redux => 
+    Redux is an open-source JavaScript library for managing and centralizing application state. It is most commonly used with libraries such as React or Angular for building user interfaces. 
+
+2) Why We need Redux ? 
+    Redux allows you to manage your apps state in a single place and keep changes in your app more predictable and traceable. It makes it easier to reason about changes occuring in your app. 
+
+3) Redux Architecture 
+    Action 
+        It collects data from component or from API 
+    Reducer 
+        Get data from action and sent to store 
+    Store 
+        state of complete application 
+    View 
+        React component 
+
+4) Installation with React Redux 
+    npm install redux 
+    npm install react-redux 
+
+5) Makes Necessary files and wrappers 
+    Folders =
+
+    1) components 
+    2) services 
+        1) Actions 
+                index.js
+        2) Reducers 
+                index.js   (root reducer)
+                reducer.js
+        3) constants.js 
+        4) store.js 
+
+6) what is action 
+    Actions are the only source of information for the store as per Redux official documentation. It carries a payload of information from your application to store. As discussed earlier, actions are plain JavaScript object that must have a type attribute to indicate the type of action performed.
+
+    way of writing action 
+
+    export const actionToPerform = (data) => {
+        return {
+            type : 'PERFORM_ACTION',
+            payload : data
+        }
+    }
+
+    use of constants => 
+        For larger projects, there are some benefits to defining action types as constants: It helps keep the naming consistent because all action types are gathered in a single place. Sometimes you want to see all existing actions before working on a new feature.
+
+    also can decalre variables in constants.js file like this
+        export const PERFORM_ACTION = "PERFORM_ACTION";
+
+    and import like this 
+        import { PERFORM_ACTION} from './../constants'
+
+    declare action then like this 
+        export const actionToPerform = (data) => {
+            return {
+                type : PERFORM_ACTION,
+                payload : data
+            }
+        }
+
+7) What is Reducer
+    In Redux, a reducer is a pure function that takes an action and the previous state of the application and returns the new state. The action describes what happened and it is the reducer's job to return the new state based on that action.
+
+    way of writing reducer function 
+
+    const initialValue = 1;
+
+    const myreducer = (state = initialValue, action) => {
+        switch (action.type){
+            case 'PERFORM_ACTION' : 
+                return state + action.data;
+            default :
+                return state;
+        }
+    }
+
+    export default myreducer;
+
+8) What is Root Reducer 
+    A Redux app really only has one reducer function: the "root reducer" function that you will pass to createStore later on. ... A reducer may be called with undefined as the state value when the application is being initialized.
+
+    way of writing root reducer 
+
+    import myreducer from './reducer';
+    import { combineReducers } from "redux";
+
+    const rootReducer = combineReducers({
+        myreducer,
+    });
+
+    export default rootReducer;
+
+9) What is Store 
+    A store is an immutable object tree in Redux. A store is a state container which holds the application's state. Redux can have only a single store in your application. Whenever a store is created in Redux, you need to specify the reducer. Let us see how we can create a store using the createStore method from Redux.
+
+    way of writing store 
+
+    import { createStore } from "redux";
+    import rootReducer from './Reducers/index';
+    const store = createStore(rootReducer);
+    export default store;
+
+10) import store and provider in index.js file 
+
+    import store from "./services/Store";
+    import { Provider } from "react-redux";
+
+    ReactDOM.render(
+    <React.StrictMode>
+        <Provider store={store}>
+        <App />
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById("root")
+    );
+
+11) what is useDispatch     
+    useDispatch is a function that we import from react-redux library and assign it to a variable. And with this, we are able to dispatch any action to the store by simply adding an action as an argument to the new variable like the code above and that's it.
+
+    use in your component like this 
+
+    import { useDispatch } from "react-redux";
+    const dispatch = useDispatch();
+    <button onClick={()=>dispatch(actionToPerform(data))}> Division </button>
+
+12) what is useSelector 
+    Let's start by importing useSelector from the react-redux library. useSelector is a function that takes the current state as an argument and returns whatever data you want from it. ... Similar to useSelector , useDispatch is a function that we import from react-redux library and assign it to a variable.
+
+    const value = useSelector((state)=> state.myreducer);
+
+    <h1> {value} </h1>
+
+-----------------------------------------------------------------
+    official documentation of redux 
+        https://redux.js.org/
+
+    official documentation of react redux 
+        https://react-redux.js.org/
+
+==================================== END REACT REDUX ==============================
+
+
+
+
+
+
+
+
+
+    
