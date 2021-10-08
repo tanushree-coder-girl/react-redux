@@ -142,14 +142,4 @@
     official documentation of react redux 
         https://react-redux.js.org/
 
-==================================== END REACT REDUX ==============================
-
-
-
-
-
-
-
-
-
-    
+==================================== END REACT REDUX ============================
